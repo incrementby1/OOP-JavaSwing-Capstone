@@ -1,0 +1,14 @@
+# TODO
+- [ ] Finish UML Diagram
+- [ ] Integrate APIs into Location Tracking (Geolocation) 
+- [ ] and Payment Portal(QRPh) features 
+- [ ] Setup localhost websocket servers to simulate User, Restaurant, DeliveryRider, System, PaymentPortal
+- [ ] Classes: 
+- [ ] Class User, 
+- [ ] Restaurant, 
+- [ ] DeliveryRider, 
+- [ ] System, 
+- [ ] Payment, 
+- [ ] Client,
+- [ ] and Order Classes.
+- [ ] Presentation Pitch Desk.
