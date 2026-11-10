@@ -1,17 +1,20 @@
 package org.foodDelivery.service;
-import java.util.List;
-import java.util.ArrayList;
 
-import org.foodDelivery.model.order.Order;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.foodDelivery.model.actor.Restaurant;
 import org.foodDelivery.model.actor.User;
-import org.foodDelivery.model.order.OrderStatus;
-import org.foodDelivery.model.order.Restaurant;
 import org.foodDelivery.model.order.MenuItem;
+import org.foodDelivery.model.order.Order;
+import org.foodDelivery.model.order.OrderEntry;
+import org.foodDelivery.model.order.OrderStatus;
 
 public class Client {
 
     private User user;
     private List<Order> activeOrders;
+    private List<MenuItem> cart;
 
     public Client(User user) {
         this.user = user;
@@ -19,16 +22,20 @@ public class Client {
         this.cart = new ArrayList<>();
     }
 
-    public boolean userAuth(){
-        return false;
+    public boolean userAuth() {
+        return user != null && user.getName() != null && !user.getName().isBlank();
     }
 
-    public void userLogout(){
-        
+    public void userLogout() {
+        this.user = null;
+        this.cart.clear();
     }
 
-    public List<MenuItem> retrieveCatalog(Restaurant restaurant){
-        return new ArrayList<>();
+    public List<MenuItem> retrieveCatalog(Restaurant restaurant) {
+        if (restaurant == null) {
+            return new ArrayList<>();
+        }
+        return restaurant.getMenu();
     }
 
     public List<Order> monitorActiveOrders() {
@@ -36,10 +43,23 @@ public class Client {
     }
 
     public void retrieveUserOrderFeedback(OrderStatus os) {
-
+        if (os != null) {
+            os.pollOrderStatus();
+        }
     }
 
-    public Order placeOrder(MenuItem category, User user) {
-    return null;
+    public Order placeOrder(MenuItem item, User user) {
+        if (item == null || user == null) {
+            return null;
+        }
+
+        OrderEntry entry = new OrderEntry(item, 1);
+        Order order = new Order();
+        order.getEntries().add(entry);
+        order.setAddress(user.getAddress());
+        order.setPaymentMode("Cash");
+        activeOrders.add(order);
+        cart.clear();
+        return order;
     }
 }
