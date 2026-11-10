@@ -1,7 +1,15 @@
+package org.foodDelivery.service;
 import java.util.List;
 import java.util.ArrayList;
+
+import org.foodDelivery.model.order.Order;
+import org.foodDelivery.model.actor.User;
+import org.foodDelivery.model.order.OrderStatus;
+import org.foodDelivery.model.order.Restaurant;
+import org.foodDelivery.model.order.MenuItem;
+
 public class Client {
-        
+
     private User user;
     private List<Order> activeOrders;
 
