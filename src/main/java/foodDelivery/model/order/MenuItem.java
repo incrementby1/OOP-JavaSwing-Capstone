@@ -1,4 +1,4 @@
-package org.foodDelivery.model.order;
+package foodDelivery.model.order;
 
 public class MenuItem {
     private String name;

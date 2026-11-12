@@ -1,6 +1,6 @@
-package org.foodDelivery.controller;
+package foodDelivery.controller;
 
-import org.foodDelivery.model.ChatMessage;
+import foodDelivery.model.ChatMessage;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;

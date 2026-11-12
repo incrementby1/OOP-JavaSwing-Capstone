@@ -1,4 +1,4 @@
-package org.foodDelivery.model.actor;
+package foodDelivery.model.actor;
 
 import java.util.Objects;
 

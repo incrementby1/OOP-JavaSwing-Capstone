@@ -1,4 +1,4 @@
-package org.foodDelivery.model;
+package foodDelivery.model;
 
 public class ChatMessage {
     private String sender;

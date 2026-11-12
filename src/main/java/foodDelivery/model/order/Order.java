@@ -1,4 +1,4 @@
-package org.foodDelivery.model.order;
+package foodDelivery.model.order;
 
 import java.util.ArrayList;
 import java.util.List;

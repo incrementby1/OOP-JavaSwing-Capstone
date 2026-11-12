@@ -1,9 +1,9 @@
-package org.foodDelivery.model.actor;
+package foodDelivery.model.actor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.foodDelivery.model.order.MenuItem;
+import foodDelivery.model.order.MenuItem;
 
 public class Restaurant {
     private String name;

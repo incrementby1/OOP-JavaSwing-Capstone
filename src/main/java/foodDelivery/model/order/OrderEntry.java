@@ -1,6 +1,4 @@
-package org.foodDelivery.model.order;
-
-import org.foodDelivery.model.order.MenuItem;
+package foodDelivery.model.order;
 
 public class OrderEntry {
 	private MenuItem menuItem;

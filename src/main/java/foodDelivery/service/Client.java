@@ -1,14 +1,14 @@
-package org.foodDelivery.service;
+package foodDelivery.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.foodDelivery.model.actor.Restaurant;
-import org.foodDelivery.model.actor.User;
-import org.foodDelivery.model.order.MenuItem;
-import org.foodDelivery.model.order.Order;
-import org.foodDelivery.model.order.OrderEntry;
-import org.foodDelivery.model.order.OrderStatus;
+import foodDelivery.model.actor.Restaurant;
+import foodDelivery.model.actor.User;
+import foodDelivery.model.order.MenuItem;
+import foodDelivery.model.order.Order;
+import foodDelivery.model.order.OrderEntry;
+import foodDelivery.model.order.OrderStatus;
 
 public class Client {
 

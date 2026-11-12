@@ -1,0 +1,22 @@
+JavaSwingCapstone
+    pom.xml
+    src/
+        main/
+            java/
+                foodDelivery/
+                    Main.java
+                    model/
+                        ...
+                    view/
+                        Frame.java
+                        ...
+                    controller/
+                        Client.java
+                        context/
+                            ClientContext.java
+                    service/
+                        ...
+        resources/
+            ...
+        test/
+            java/
