@@ -8,7 +8,7 @@
 **BSCS-2 F2 FINAL PROJECT**\
 A desktop simple Food Order Delivery System developed using **Java Swing UI** with **FlatLaf** as part of the **CSIT227 Object Oriented Program Course**.
 
-The system simulates a food delivery platform, featuring synthetically generated data stored in JSON. It includes varius actors such as **customers**, **restaurants**, **drivers**, other entities involved in the food ordering and delivery process. 
+The system simulates a food delivery platform, featuring synthetically generated data stored in JSON. It includes various actors such as **customers**, **restaurants**, **drivers**, other entities involved in the food ordering and delivery process. 
 
 # Requirements
 ```agsl
