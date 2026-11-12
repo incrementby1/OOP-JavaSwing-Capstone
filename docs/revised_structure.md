@@ -6,17 +6,41 @@ JavaSwingCapstone
                 foodDelivery/
                     Main.java
                     model/
-                        ...
-                    view/
-                        Frame.java
-                        ...
+                        actors/
+                            Actor.java
+                            Customer.java
+                            Restaurant.java
+                            DeliveryRider.java
+                            Admin.java
+                        data/
+                            MenuItem.java
+                            Order.java
+                        exceptions/
+                            InvalidCredentialsException.java
+                            EmptyCartException.java
+                        ClientContext.java
+                    view/  
+                        AuthPanel.java
+                        ProfilePanel.java
+                        CustomerHomePanel.java
+                        MerchantDashboardPanel.java
+                        RiderDashboardPanel.java
+                        AdminDashboardPanel.java
                     controller/
+                        states/
+                            ClientState.java
+                            ClientAuthState.java
+                            ClientCustomerHomeState.java
+                            ClientMerchantDashboardState.java
+                            ClientRiderDashboardState.java
+                            ClientAdminDashboardState.java
+                            ClientProfileState.java
                         Client.java
-                        context/
-                            ClientContext.java
+                        Server.java
                     service/
-                        ...
+                        StorageService.java
         resources/
             ...
         test/
             java/
+                ...

@@ -8,11 +8,12 @@ import java.awt.*;
 public class ClientAuthState extends ClientState {
     private final JPanel panel;
 
-    public ClientAuthState() {
-        super(Client.State.AUTHENTICATION);
+
+    public ClientAuthState(Client client) {
+        super(client, Client.State.AUTHENTICATION);
         this.panel = new JPanel();
 
-        // Build your UI manually with standard Swing components:
+
         panel.setLayout(new FlowLayout());
         panel.add(new JLabel("Username:"));
         panel.add(new JTextField(15));
@@ -20,7 +21,6 @@ public class ClientAuthState extends ClientState {
         JButton loginButton = new JButton("Login");
         loginButton.addActionListener(e -> {
             System.out.println("Login clicked!");
-            // e.g., client.transitionTo(new ClientDashboardState(client));
         });
         panel.add(loginButton);
     }

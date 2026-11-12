@@ -7,7 +7,8 @@ import javax.swing.*;
  * Base class for all
  * client states. Extend this class
  * to create a new client state. Every ClientState
- * subclass must link to a Client.State field.
+ * subclass must link to a Client.State field and
+ * must expose their own view.
  */
 public abstract class ClientState {
 
@@ -18,6 +19,7 @@ public abstract class ClientState {
      * enum value and a ClientState subclass.
      */
     public final Client.State linkedState;
+    public final Client client;
 
     /**
      * Whether the current state is considered
@@ -26,7 +28,8 @@ public abstract class ClientState {
      * topmost state on the client state stack.
      */
     public boolean enabled;
-    public ClientState(Client.State state) {
+    public ClientState(Client client, Client.State state) {
+        this.client = client;
         linkedState = state;
         enabled = true;
     }

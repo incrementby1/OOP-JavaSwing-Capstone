@@ -1,14 +1,13 @@
-package foodDelivery.model.actor;
+package foodDelivery.model;
 
 import java.util.Objects;
 
-public class User{
+public class User {
     private String name;
     private String address;
     private int uuid;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String name, String address, int uuid) {
         this.name = name;
@@ -19,15 +18,12 @@ public class User{
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }

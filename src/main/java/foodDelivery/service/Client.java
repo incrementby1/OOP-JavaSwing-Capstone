@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import foodDelivery.model.actor.Restaurant;
-import foodDelivery.model.actor.User;
+import foodDelivery.model.User;
 import foodDelivery.model.order.MenuItem;
 import foodDelivery.model.order.Order;
 import foodDelivery.model.order.OrderEntry;

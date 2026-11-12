@@ -2,6 +2,7 @@ package foodDelivery.controller;
 
 import foodDelivery.controller.states.ClientAuthState;
 import foodDelivery.controller.states.ClientState;
+import foodDelivery.model.ClientContext;
 
 import javax.swing.*;
 import java.util.Stack;
@@ -14,6 +15,7 @@ import java.util.Stack;
 public class Client {
     private static final int INITIAL_WIDTH = 1280;
     private static final int INITIAL_HEIGHT = 720;
+    private static final String NAME = "Food Delivery (DEBUG)";
     /**
      * Client State enum.
      * Linked 1:1 to a ClientState
@@ -30,17 +32,21 @@ public class Client {
      */
     private final Stack<ClientState> state;
     private final JFrame mainFrame;
-    public Client() {
+    private final ClientContext context;
+    public final Server server;
+
+    public Client(Server server) {
+        this.server = server;
         state = new Stack<>();
-        mainFrame = new JFrame("Food Delivery (DEBUG)");
+        context = new ClientContext();
+        mainFrame = new JFrame(NAME);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setSize(INITIAL_WIDTH, INITIAL_HEIGHT);
-        mainFrame.setLocationRelativeTo(null); // Centered on screen.
+        mainFrame.setLocationRelativeTo(null); // null to center on screen.
     }
     public JFrame getMainFrame() {
         return mainFrame;
     }
-
     /**
      * Pushes a new client state on top of the stack.
      * suspend the current state by calling
@@ -94,6 +100,12 @@ public class Client {
         current.enabled = true;
         current.onResume();
 
+        // When only authentication
+        // remains, reset state.
+        if (state.size() == 1) {
+            context.clear();
+        }
+
         // Render. Called to apply change at runtime.
         mainFrame.setContentPane(current.getView());
         mainFrame.revalidate();
@@ -106,8 +118,7 @@ public class Client {
      * to start the application.
      */
     public void run() {
-        transitionTo(new ClientAuthState());
+        transitionTo(new ClientAuthState(this));
         mainFrame.setVisible(true);
-
     }
 }
