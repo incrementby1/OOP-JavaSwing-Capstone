@@ -1,14 +1,26 @@
 # OOP-JavaSwing-Capstone
-BSCS2-F1-CSIT227 Final Project
+# Food Order Delivery System
+![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)
+![Maven](https://img.shields.io/badge/Maven-Build-blue?logo=apachemaven)
+![FlatLaf](https://img.shields.io/badge/FlatLaf-UI-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-ts so fire
-![First Commit](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.4b777KhvenlqRIt8qZQokQHaNJ%3Fpid%3DApi&f=1&ipt=2b38dd58917a11d9df738820d179b2a0255b2c9a4d81b7d73116198c2fedb08a&ipo=images)
+**BSCS-2 F2 FINAL PROJECT**\
+A desktop simple Food Order Delivery System developed using **Java Swing UI** with **FlatLaf** as part of the **CSIT227 Object Oriented Program Course**.
 
-Members:\
-    Cui, Jayvee Martin\
-    Lim, Joshua Leon\
-    Navarro, Angelo Jade\
-    Sable, Jayden Steiner P.\
-    Sandoval, Thadeos Paul C.
+The system simulates a food delivery platform, featuring synthetically generated data stored in JSON. It includes varius actors such as **customers**, **restaurants**, **drivers**, other entities involved in the food ordering and delivery process. 
 
-![Class Diagram]()
+# Requirements
+```agsl
+mvn clean install
+```
+
+# Members:
+- Cui, Jayvee Martin
+- Lim, Joshua Leon
+- Navarro, Angelo Jade
+- Sable, Jayden Steiner P.
+- Sandoval, Thadeos Paul C.
+
+# Class Diagram
+![Class Diagram](https://scontent.fmnl4-8.fna.fbcdn.net/v/t1.15752-9/896731411_1677799204050497_112289891823931701_n.png?stp=dst-png&cstp=mx665x839&ctp=s665x839&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEbLRxSkjPM_6QG7J_iKiWRPJlKem5ErNg8mUp6bkSs2DviCBwqs8k9OZWyQxVuUENmCO2M0G-pqgmShHAKnbcq&_nc_ohc=2DpeZJYzTR4Q7kNvwGrQ7Aj&_nc_oc=AdpkwEOHIPoqzX0p89m3uYGA9RVbSXkGxuzBCbhCFCxe3gesOoqKSC3hRpci5Bd91K0&_nc_zt=23&_nc_ht=scontent.fmnl4-8.fna&_nc_ss=7a2a8&oh=03_Q7cD6wFppi-eK4bQHd8xSE_NXRHHArBTZNSs7D8jojZFoXOorQ&oe=6B1C98A4)
