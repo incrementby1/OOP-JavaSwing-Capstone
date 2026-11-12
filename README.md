@@ -1,19 +1,24 @@
 # OOP-JavaSwing-Capstone
-# Food Order Delivery System
-![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)
+# Morsel
+![Java](https://img.shields.io/badge/Java-17-orange?logo=openjdk)
 ![Maven](https://img.shields.io/badge/Maven-Build-blue?logo=apachemaven)
 ![FlatLaf](https://img.shields.io/badge/FlatLaf-UI-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-**BSCS-2 F2 FINAL PROJECT**\
-A desktop simple Food Order Delivery System developed using **Java Swing UI** with **FlatLaf** as part of the **CSIT227 Object Oriented Program Course**.
+**BSCS-2 F1 FINAL PROJECT**\
+**_Morsel_** is a desktop-based client developed using **Java Swing UI** 
+with **FlatLaf** as part of the **CSIT227 Object-Oriented Program Course**.
 
-The system simulates a food delivery platform, featuring synthetically generated data stored in JSON. It includes various actors such as **customers**, **restaurants**, **drivers**, other entities involved in the food ordering and delivery process. 
+This project simulates a food delivery platform using synthetically 
+generated data stored on disk via JSON files. It features various actors such as 
+**customers**, **merchants/restaurants**, **deliver riders**, as well as other entities 
+that are involved in the food ordering and delivery process. 
 
 # Requirements
 ```agsl
 mvn clean install
 ```
+
 
 # Members:
 - Cui, Jayvee Martin

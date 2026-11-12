@@ -1,3 +1,11 @@
 # TODO
 
-- [ ] Finish UML Diagram specification (Nov 09, 2026)
+- [ ] Outline UML Diagram (Nov 23)
+- ### Implementation
+  - [x] Client
+  - [ ] Server
+  - [ ] ClientAuthState
+  - [ ] StorageService
+  - [ ] AuthPanel
+  - [ ] InvalidCredentialsException
+  - [ ] Actor
