@@ -1,7 +1,10 @@
 package org.foodDelivery;
 
+import org.foodDelivery.forms.Client;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        org.foodDelivery.forms.Client client = new Client();
+        client.start();
     }
 }
