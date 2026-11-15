@@ -1,57 +1,45 @@
 package org.foodDelivery.model.actor;
+import org.foodDelivery.model.BaseEntity;
+import org.foodDelivery.model.Address;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-public class User{
+public class User extends BaseEntity {
     private String name;
-    private String address;
-    private int uuid;
+    List<Address> savedAddresses;
+    private Address activeAddress;
 
-    public User() {
-    }
-
-    public User(String name, String address, int uuid) {
+    public User(UUID id, String name) {
+        super(id);
         this.name = name;
-        this.address = address;
-        this.uuid = uuid;
+        savedAddresses = new ArrayList<>();
+        activeAddress = null;
     }
 
-    public String getName() {
+    public User(String name, UUID id, Address activeAddress) {
+        this(id,name);
+        this.activeAddress = activeAddress;
+    }
+
+    public final String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getAddress() {
-        return address;
+    public List<Address> getAddresses() {
+        return savedAddresses;
     }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-//    For hashmap lookup
-    @Override
-    public int hashCode() {
-        return Objects.hash(uuid, name, address);
-    }
-
-//    In case two separately identical instances but different memory addresses
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return this.uuid == user.uuid &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(address, user.address);
+    public void setAddress(Address address) {
+        this.activeAddress = address;
+        savedAddresses.add(address);
     }
 
 //    For Debugging/Logging
     @Override
     public String toString() {
-        return String.format("User{ uuid={ %d }, name='%s', address='%s' }", uuid, name, address);
+        return String.format("User{ uuid={ %s }, name='%s', address='%s' }", this.getId().toString(), name, activeAddress);
     }
 }

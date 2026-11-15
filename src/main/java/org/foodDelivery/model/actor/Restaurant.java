@@ -1,53 +1,62 @@
 package org.foodDelivery.model.actor;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 
+import org.foodDelivery.model.BaseEntity;
+import org.foodDelivery.model.Address;
 import org.foodDelivery.model.order.MenuItem;
 
-public class Restaurant {
+public class Restaurant extends BaseEntity {
     private String name;
-    private String location;
+    public UUID id;
+    private String phone;
+    private List<Address> branches;
     private String operatingHours;
     private List<MenuItem> menu;
 
-    public Restaurant() {
-        this.menu = new ArrayList<>();
-    }
-
-    public Restaurant(String name, String location, String operatingHours) {
+    public Restaurant(UUID id, String name, String phone, List<Address> branches) {
+        super(id);
         this.name = name;
-        this.location = location;
-        this.operatingHours = operatingHours;
-        this.menu = new ArrayList<>();
+        this.phone = phone;
+        this.branches = branches;
     }
 
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
+    /**
+     * Get Specific Location of a Branch provided the city
+     * TODO: filter List for records that match the city (from JSON)
+     */
+    public String getLocation(String city) {
+        return " ";
     }
-
     public void setLocation(String location) {
         this.location = location;
     }
-
     public String getOperatingHours() {
         return operatingHours;
     }
-
     public void setOperatingHours(String operatingHours) {
         this.operatingHours = operatingHours;
     }
-
     public List<MenuItem> getMenu() {
         return menu;
+    }
+
+    /**
+     * accept user address @param1
+     * determine nearest branch by filtering using distanceTo()
+     */
+    public Address getNearestBranch(Address userAddress) {
+        return branches.stream().min(Comparator.comparingDouble(branch -> branch.distanceTo(userAddress)))
     }
 
     public void setMenu(List<MenuItem> menu) {
