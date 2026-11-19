@@ -58,7 +58,7 @@ public class ClientAuthState extends ClientState {
                 
                 // Create appropriate actor based on role
                 Actor actor = switch (userEntry.role) {
-                    case ADMIN -> new Actor(Actor.Role.ADMIN, userEntry.uuid);
+                    case ADMIN -> new Admin(userEntry.uuid);
                     case CUSTOMER -> new Customer(userEntry.uuid);
                     case MERCHANT -> new Merchant(userEntry.uuid);
                     case RIDER -> new Rider(userEntry.uuid);

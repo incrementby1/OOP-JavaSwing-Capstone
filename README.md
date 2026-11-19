@@ -21,40 +21,40 @@ that are involved in the food ordering and delivery process.
 ```
 morsel/
 ├── controller/
-│   ├── Client.java           # Main client controller with state management
-│   ├── Server.java           # Backend server handling file I/O and business logic
+│   ├── Client.java           
+│   ├── Server.java          
 │   └── states/
-│       ├── ClientState.java         # Base state class
-│       ├── ClientAuthState.java     # Authentication state (login/register)
-│       ├── ClientCustomerHomeState.java  # Customer dashboard state
-│       ├── ClientMerchantDashboardState.java  # Merchant dashboard state
-│       ├── ClientAdminDashboardState.java    # Admin dashboard state
-│       ├── ClientRiderDashboardState.java    # Rider dashboard state
-│       └── ClientProfileState.java    # Profile management state
+│       ├── ClientState.java         
+│       ├── ClientAuthState.java     
+│       ├── ClientCustomerHomeState.java 
+│       ├── ClientMerchantDashboardState.java 
+│       ├── ClientAdminDashboardState.java  
+│       ├── ClientRiderDashboardState.java  
+│       └── ClientProfileState.java   
 ├── model/
-│   ├── ClientContext.java    # Shared context between states
+│   ├── ClientContext.java   
 │   ├── actors/
-│   │   ├── Actor.java        # Base actor class
-│   │   ├── Admin.java        # Admin actor
-│   │   ├── Customer.java     # Customer actor
-│   │   ├── Merchant.java     # Merchant actor
-│   │   └── Rider.java        # Rider actor
+│   │   ├── Actor.java        
+│   │   ├── Admin.java        
+│   │   ├── Customer.java     
+│   │   ├── Merchant.java     
+│   │   └── Rider.java        
 │   └── data/
-│       ├── UserEntry.java    # User authentication data
-│       ├── Order.java        # Order status enum
-│       ├── OrderEntry.java   # Order with metadata
-│       ├── MenuItem.java     # Menu item data
-│       └── exceptions/       # Custom exceptions
+│       ├── UserEntry.java    
+│       ├── Order.java       
+│       ├── OrderEntry.java
+│       ├── MenuItem.java  
+│       └── exceptions/     
 └── service/
-    └── StorageService.java   # JSON file I/O service with Jackson
+    └── StorageService.java   
 └── view/
-    ├── AuthPanel.java        # Login and registration panel
-    ├── BaseDashboardPanel.java # Base dashboard with navigation sidebar
-    ├── CustomerDashboardPanel.java  # Customer dashboard UI
-    ├── MerchantDashboardPanel.java  # Merchant dashboard UI
-    ├── AdminDashboardPanel.java   # Admin dashboard UI
-    ├── RiderDashboardPanel.java   # Rider dashboard UI
-    └── ProfilePanel.java      # Profile management UI
+    ├── AuthPanel.java       
+    ├── BaseDashboardPanel.java 
+    ├── CustomerDashboardPanel.java 
+    ├── MerchantDashboardPanel.java
+    ├── AdminDashboardPanel.java 
+    ├── RiderDashboardPanel.java   
+    └── ProfilePanel.java    
 ```
 
 ## Technology Stack
