@@ -16,7 +16,6 @@ import morsel.view.AuthPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Authentication state for user login and registration.
@@ -74,7 +73,7 @@ public class ClientAuthState extends ClientState {
                 
                 authPanel.clearLoginFields();
                 
-            } catch (InvalidCredentialsException ex) {
+            } catch (InvalidCredentialsException | IllegalStateException ex) {
                 JOptionPane.showMessageDialog(
                     authPanel,
                     "Invalid username or password.",
@@ -86,13 +85,6 @@ public class ClientAuthState extends ClientState {
                 JOptionPane.showMessageDialog(
                     authPanel,
                     "Failed to validate credentials: " + ex.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-                );
-            } catch (NoSuchAlgorithmException ex) {
-                JOptionPane.showMessageDialog(
-                    authPanel,
-                    "Security error: " + ex.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE
                 );
@@ -194,13 +186,6 @@ public class ClientAuthState extends ClientState {
                 JOptionPane.showMessageDialog(
                     authPanel,
                     "Registration failed: " + ex.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-                );
-            } catch (NoSuchAlgorithmException ex) {
-                JOptionPane.showMessageDialog(
-                    authPanel,
-                    "Security error: " + ex.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE
                 );
