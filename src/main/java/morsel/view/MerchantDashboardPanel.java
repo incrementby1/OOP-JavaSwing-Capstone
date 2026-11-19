@@ -1,9 +1,12 @@
 package morsel.view;
 
 import morsel.model.actors.Merchant;
+import morsel.model.data.MenuItem;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 /**
  * Merchant dashboard panel for managing restaurant operations.
@@ -11,11 +14,17 @@ import java.awt.*;
 public class MerchantDashboardPanel extends BaseDashboardPanel {
     
     private JTextArea ordersTextArea;
-    private JTextArea menuTextArea;
+    private JTable menuTable;
+    private DefaultTableModel menuTableModel;
     private JButton refreshButton;
+    private JButton addItemButton;
+    private JButton editItemButton;
+    private JButton removeItemButton;
+    private final Merchant merchant;
     
     public MerchantDashboardPanel(Merchant merchant, Runnable onLogout, Runnable onProfile) {
         super(merchant, onLogout, onProfile);
+        this.merchant = merchant;
     }
     
     @Override
@@ -68,16 +77,25 @@ public class MerchantDashboardPanel extends BaseDashboardPanel {
         menuLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         menuPanel.add(menuLabel, BorderLayout.NORTH);
         
-        menuTextArea = new JTextArea();
-        menuTextArea.setEditable(false);
-        menuTextArea.setFont(new Font("Consolas", Font.PLAIN, 12));
-        JScrollPane menuScrollPane = new JScrollPane(menuTextArea);
+        // Create table model for menu items
+        String[] columnNames = {"Name", "Description", "Price", "Category"};
+        menuTableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Make cells non-editable
+            }
+        };
+        menuTable = new JTable(menuTableModel);
+        menuTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        menuTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        JScrollPane menuScrollPane = new JScrollPane(menuTable);
         menuPanel.add(menuScrollPane, BorderLayout.CENTER);
         
+        // Button panel
         JPanel menuButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton addItemButton = new JButton("Add Menu Item");
-        JButton editItemButton = new JButton("Edit Menu Item");
-        JButton removeItemButton = new JButton("Remove Menu Item");
+        addItemButton = new JButton("Add Menu Item");
+        editItemButton = new JButton("Edit Menu Item");
+        removeItemButton = new JButton("Remove Menu Item");
         
         menuButtonPanel.add(addItemButton);
         menuButtonPanel.add(editItemButton);
@@ -111,19 +129,82 @@ public class MerchantDashboardPanel extends BaseDashboardPanel {
     @Override
     protected void onDashboard() {
         refreshOrders();
+        refreshMenu();
     }
     
     public void refreshOrders() {
         ordersTextArea.setText("Loading orders...");
-        // In a real implementation, this would fetch orders from the server
         ordersTextArea.setText("No pending orders.\n\nOrders will appear here when customers place them.");
+    }
+    
+    public void refreshMenu() {
+        menuTableModel.setRowCount(0); // Clear existing rows
+        // This will be populated by the controller
     }
     
     public void setOrdersText(String text) {
         ordersTextArea.setText(text);
     }
     
+    public void setMenuItems(List<MenuItem> items) {
+        menuTableModel.setRowCount(0); // Clear existing rows
+        for (MenuItem item : items) {
+            Object[] rowData = {
+                item.getName(),
+                item.getDescription(),
+                String.format("$%.2f", item.getPrice()),
+                item.getCategory()
+            };
+            menuTableModel.addRow(rowData);
+        }
+    }
+    
+    public void addMenuItem(MenuItem item) {
+        Object[] rowData = {
+            item.getName(),
+            item.getDescription(),
+            String.format("$%.2f", item.getPrice()),
+            item.getCategory()
+        };
+        menuTableModel.addRow(rowData);
+    }
+    
+    public void removeMenuItem(int row) {
+        if (row >= 0 && row < menuTableModel.getRowCount()) {
+            menuTableModel.removeRow(row);
+        }
+    }
+    
+    public void updateMenuItem(int row, MenuItem item) {
+        if (row >= 0 && row < menuTableModel.getRowCount()) {
+            menuTableModel.setValueAt(item.getName(), row, 0);
+            menuTableModel.setValueAt(item.getDescription(), row, 1);
+            menuTableModel.setValueAt(String.format("$%.2f", item.getPrice()), row, 2);
+            menuTableModel.setValueAt(item.getCategory(), row, 3);
+        }
+    }
+    
+    public int getSelectedMenuItemRow() {
+        return menuTable.getSelectedRow();
+    }
+    
+    public Merchant getMerchant() {
+        return merchant;
+    }
+    
     public JButton getRefreshButton() {
         return refreshButton;
+    }
+    
+    public JButton getAddItemButton() {
+        return addItemButton;
+    }
+    
+    public JButton getEditItemButton() {
+        return editItemButton;
+    }
+    
+    public JButton getRemoveItemButton() {
+        return removeItemButton;
     }
 }

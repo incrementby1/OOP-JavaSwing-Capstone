@@ -317,4 +317,72 @@ public class Server {
                 .filter(item -> item.getName() != null && item.getName().toLowerCase().contains(q))
                 .toList();
     }
+
+    /**
+     * Adds a new menu item to the catalog.
+     * @param item The menu item to add.
+     * @throws IOException When addition fails due to an IO error.
+     */
+    public void addMenuItem(MenuItem item) throws IOException {
+        assert item != null;
+        List<MenuItem> catalog = catalogStore.readFrom();
+        catalog.add(item);
+        catalogStore.writeTo(catalog);
+    }
+
+    /**
+     * Updates an existing menu item in the catalog.
+     * @param index The index of the item to update.
+     * @param updatedItem The updated menu item.
+     * @return true if the item was updated, false if index is out of bounds.
+     * @throws IOException When update fails due to an IO error.
+     */
+    public boolean updateMenuItem(int index, MenuItem updatedItem) throws IOException {
+        assert updatedItem != null;
+        List<MenuItem> catalog = catalogStore.readFrom();
+        if (index < 0 || index >= catalog.size()) {
+            return false;
+        }
+        catalog.set(index, updatedItem);
+        catalogStore.writeTo(catalog);
+        return true;
+    }
+
+    /**
+     * Removes a menu item from the catalog.
+     * @param index The index of the item to remove.
+     * @return true if the item was removed, false if index is out of bounds.
+     * @throws IOException When removal fails due to an IO error.
+     */
+    public boolean removeMenuItem(int index) throws IOException {
+        List<MenuItem> catalog = catalogStore.readFrom();
+        if (index < 0 || index >= catalog.size()) {
+            return false;
+        }
+        catalog.remove(index);
+        catalogStore.writeTo(catalog);
+        return true;
+    }
+
+    /**
+     * Gets menu items for a specific merchant.
+     * @param merchantId The merchant's UUID.
+     * @return List of menu items belonging to the merchant.
+     * @throws IOException When retrieval fails due to an IO error.
+     */
+    public List<MenuItem> getMerchantMenu(long merchantId) throws IOException {
+        List<MenuItem> all = catalogStore.readFrom();
+        return all.stream()
+                .filter(item -> item.getMerchantId() == merchantId)
+                .toList();
+    }
+
+    /**
+     * Gets all menu items from the catalog.
+     * @return List of all menu items.
+     * @throws IOException When retrieval fails due to an IO error.
+     */
+    public List<MenuItem> getAllMenuItems() throws IOException {
+        return catalogStore.readFrom();
+    }
 }
