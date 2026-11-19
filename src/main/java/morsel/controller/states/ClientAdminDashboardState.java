@@ -1,4 +1,131 @@
 package morsel.controller.states;
 
-public class ClientAdminDashboardState {
+import morsel.controller.Client;
+import morsel.model.actors.Actor;
+import morsel.view.AdminDashboardPanel;
+
+import javax.swing.*;
+
+/**
+ * Admin dashboard state for the client application.
+ * Provides system management capabilities.
+ */
+public class ClientAdminDashboardState extends ClientState {
+    
+    private final AdminDashboardPanel dashboardPanel;
+    private final Client client;
+    
+    public ClientAdminDashboardState(Client client) {
+        super(client, Client.State.ADMIN_DASHBOARD);
+        this.client = client;
+        
+        Actor admin = client.getContext().actor;
+        this.dashboardPanel = new AdminDashboardPanel(
+            admin,
+            this::logout,
+            this::navigateToProfile
+        );
+        
+        setupEventListeners();
+    }
+    
+    private void setupEventListeners() {
+        dashboardPanel.getRefreshUsersButton().addActionListener(e -> {
+            refreshUsers();
+        });
+        
+        dashboardPanel.getRefreshOrdersButton().addActionListener(e -> {
+            refreshOrders();
+        });
+    }
+    
+    private void refreshUsers() {
+        try {
+            // In a real implementation:
+            // var users = client.server.getAllUsers();
+            // StringBuilder sb = new StringBuilder();
+            // for (var entry : users.values()) {
+            //     sb.append(String.format("User: %s (Role: %s)\n", entry.username, entry.role));
+            // }
+            // dashboardPanel.setUsersText(sb.toString());
+            
+            dashboardPanel.refreshUsers();
+            JOptionPane.showMessageDialog(
+                dashboardPanel,
+                "Users refreshed successfully.",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                dashboardPanel,
+                "Failed to refresh users: " + ex.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    
+    private void refreshOrders() {
+        try {
+            // In a real implementation:
+            // var orders = client.server.getAllOrders();
+            // StringBuilder sb = new StringBuilder();
+            // for (var entry : orders.values()) {
+            //     sb.append(String.format("Order #%d: %s (Customer: %d)\n", 
+            //         entry.orderId, entry.status, entry.customerId));
+            // }
+            // dashboardPanel.setOrdersText(sb.toString());
+            
+            dashboardPanel.refreshOrders();
+            JOptionPane.showMessageDialog(
+                dashboardPanel,
+                "Orders refreshed successfully.",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                dashboardPanel,
+                "Failed to refresh orders: " + ex.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    
+    private void navigateToProfile() {
+        client.transitionTo(new ClientProfileState(client));
+    }
+    
+    private void logout() {
+        client.backtrack(-1); // Go back to authentication
+    }
+    
+    @Override
+    public JPanel getView() {
+        return dashboardPanel;
+    }
+    
+    @Override
+    public void onEntry() {
+        refreshUsers();
+        refreshOrders();
+    }
+    
+    @Override
+    public void onExit() {
+        // Clean up if needed
+    }
+    
+    @Override
+    public void onSuspend() {
+        // Save state if needed
+    }
+    
+    @Override
+    public void onResume() {
+        refreshUsers();
+        refreshOrders();
+    }
 }

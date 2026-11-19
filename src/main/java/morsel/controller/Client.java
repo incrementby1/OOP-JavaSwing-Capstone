@@ -29,6 +29,11 @@ public class Client {
      */
     public enum State {
         AUTHENTICATION,
+        CUSTOMER_HOME,
+        MERCHANT_DASHBOARD,
+        ADMIN_DASHBOARD,
+        RIDER_DASHBOARD,
+        PROFILE,
     }
 
     /**
