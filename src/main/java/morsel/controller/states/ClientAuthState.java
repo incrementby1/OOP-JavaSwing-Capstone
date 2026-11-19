@@ -3,6 +3,7 @@ package morsel.controller.states;
 import morsel.controller.Client;
 import morsel.model.ClientContext;
 import morsel.model.actors.Actor;
+import morsel.model.actors.Admin;
 import morsel.model.actors.Customer;
 import morsel.model.actors.Merchant;
 import morsel.model.actors.Rider;
