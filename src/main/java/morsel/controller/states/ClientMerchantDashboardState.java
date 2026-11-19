@@ -6,6 +6,7 @@ import morsel.model.data.MenuItem;
 import morsel.view.MerchantDashboardPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
