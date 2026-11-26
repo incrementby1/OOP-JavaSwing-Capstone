@@ -82,7 +82,8 @@ public class ProfilePanel extends JPanel {
         gbc.gridx = 1;
         usernameField = new JTextField(20);
         usernameField.setEditable(false);
-        usernameField.setText(actor.getRole().toString().toLowerCase() + "_" + actor.getUuid());
+        String username = actor.getUsername();
+        usernameField.setText(username); // change
         contentPanel.add(usernameField, gbc);
         row++;
         

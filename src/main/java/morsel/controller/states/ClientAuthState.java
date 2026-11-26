@@ -63,7 +63,9 @@ public class ClientAuthState extends ClientState {
                     case MERCHANT -> new Merchant(userEntry.uuid);
                     case RIDER -> new Rider(userEntry.uuid);
                 };
-                
+
+                actor.setUsername(userEntry.username);
+
                 // Set context
                 ClientContext context = client.getContext();
                 context.actor = actor;
@@ -154,7 +156,7 @@ public class ClientAuthState extends ClientState {
             try {
                 String passwordStr = new String(password);
                 String confirmPasswordStr = new String(confirmPassword);
-                
+
                 client.server.registerCredentials(username, passwordStr, confirmPasswordStr, role);
                 
                 JOptionPane.showMessageDialog(
