@@ -13,6 +13,7 @@ public class RiderDashboardPanel extends BaseDashboardPanel {
     private JTextArea deliveryTextArea;
     private JButton refreshButton;
     private JButton toggleAvailabilityButton;
+    private JLabel availabilityLabel;
     private boolean isAvailable;
     
     public RiderDashboardPanel(Rider rider, Runnable onLogout, Runnable onProfile) {
@@ -39,7 +40,7 @@ public class RiderDashboardPanel extends BaseDashboardPanel {
         headerPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         
         JPanel availabilityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel availabilityLabel = new JLabel("Status: Unavailable");
+        availabilityLabel = new JLabel("Status: Unavailable");
         availabilityLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
         availabilityLabel.setForeground(Color.RED);
         availabilityPanel.add(availabilityLabel);
@@ -133,6 +134,8 @@ public class RiderDashboardPanel extends BaseDashboardPanel {
     public void toggleAvailability() {
         isAvailable = !isAvailable;
         if (isAvailable) {
+            availabilityLabel.setText("Status: Available");
+            availabilityLabel.setForeground(new Color(0, 150, 0));
             toggleAvailabilityButton.setText("Go Offline");
             toggleAvailabilityButton.setBackground(Color.RED);
             JOptionPane.showMessageDialog(
@@ -142,6 +145,8 @@ public class RiderDashboardPanel extends BaseDashboardPanel {
                 JOptionPane.INFORMATION_MESSAGE
             );
         } else {
+            availabilityLabel.setText("Status: Unavailable");
+            availabilityLabel.setForeground(Color.RED);
             toggleAvailabilityButton.setText("Go Online");
             toggleAvailabilityButton.setBackground(new Color(0, 150, 0));
             JOptionPane.showMessageDialog(
