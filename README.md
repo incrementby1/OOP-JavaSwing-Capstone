@@ -185,6 +185,22 @@ You can change the theme by replacing with:
 - `FlatIntelliJLaf.setup()` - IntelliJ-inspired theme
 - `FlatDarculaLaf.setup()` - Darcula theme
 
+## Design Pattern
+
+### Creation Design Pattern
+**Factory**
+> "BaseDashboardPanel" defines "createMainContent()" as an abstract <br>
+>  to have each subclass get its own JPanel to instantiate for main ui area. <br>
+>  "ClientAuthState" also does this with userEntry.role to instantiate Actor subclass.
+
+### Structural Design Pattern
+**Facade**
+> Server hides complexity of "StorageService`<T>`" in its own JSON stores, <br>
+> and state coordination.
+
+**Composite**
+> Actors <- Ref
+
 ## Members:
 - Cui, Jayvee Martin
 - Lim, Joshua Leon
