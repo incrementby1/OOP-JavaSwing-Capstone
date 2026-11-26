@@ -199,7 +199,7 @@ You can change the theme by replacing with:
 > and state coordination.
 
 **Composite**
-> Actors <- Ref
+> Actors <- Ref2
 
 ## Members:
 - Cui, Jayvee Martin
