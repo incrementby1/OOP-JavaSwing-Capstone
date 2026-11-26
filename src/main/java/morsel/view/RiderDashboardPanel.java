@@ -1,7 +1,9 @@
 package morsel.view;
 
 import morsel.model.actors.Rider;
+import morsel.controller.Server;
 
+import java.io.IOException;
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,9 +17,19 @@ public class RiderDashboardPanel extends BaseDashboardPanel {
     private JButton toggleAvailabilityButton;
     private JLabel availabilityLabel;
     private boolean isAvailable;
-    
-    public RiderDashboardPanel(Rider rider, Runnable onLogout, Runnable onProfile) {
+    private Server server;
+    private Rider rider;
+
+    public RiderDashboardPanel(
+            Rider rider,
+            Runnable onLogout,
+            Runnable onProfile,
+            Server server) {
+
         super(rider, onLogout, onProfile);
+
+        this.rider = rider;
+        this.server = server;
         this.isAvailable = false;
     }
     
@@ -48,6 +60,11 @@ public class RiderDashboardPanel extends BaseDashboardPanel {
         toggleAvailabilityButton = new JButton("Go Online");
         toggleAvailabilityButton.setBackground(new Color(0, 150, 0));
         toggleAvailabilityButton.setForeground(Color.WHITE);
+
+        toggleAvailabilityButton.addActionListener(
+                e -> toggleAvailability()
+        );
+
         availabilityPanel.add(toggleAvailabilityButton);
         
         headerPanel.add(availabilityPanel, BorderLayout.WEST);
@@ -119,10 +136,21 @@ public class RiderDashboardPanel extends BaseDashboardPanel {
         
         return mainPanel;
     }
-    
+
     @Override
     protected void onDashboard() {
         refreshDeliveries();
+
+        try {
+            loadAvailability();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to load availability: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
     
     public void refreshDeliveries() {
@@ -130,34 +158,94 @@ public class RiderDashboardPanel extends BaseDashboardPanel {
         // In a real implementation, this would fetch deliveries from the server
         deliveryTextArea.setText("No available deliveries.\n\nDeliveries will appear here when available.");
     }
-    
+
+
+    /**
+     * Toggles the rider's availability status between online
+     * and offline and updates the server accordingly.
+     *
+     * Handles IO errors when updating rider availability.
+     */
     public void toggleAvailability() {
-        isAvailable = !isAvailable;
+        boolean newAvailability = !isAvailable;
+
+        try {
+            server.updateRiderAvailability(rider, newAvailability);
+
+            System.out.println("Requested availability: " + newAvailability);
+            System.out.println("Active riders in server: "
+                    + server.getActiveRiders().size());
+
+            System.out.println("Rider found in server: "
+                    + server.getActiveRiders().stream()
+                    .anyMatch(r -> r.getUuid() == rider.getUuid()));
+
+            isAvailable = newAvailability;
+
+            if (isAvailable) {
+                availabilityLabel.setText("Status: Available");
+                availabilityLabel.setForeground(new Color(0, 150, 0));
+
+                toggleAvailabilityButton.setText("Go Offline");
+                toggleAvailabilityButton.setBackground(Color.RED);
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "You are now available for deliveries!",
+                        "Status Changed",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+            } else {
+                availabilityLabel.setText("Status: Unavailable");
+                availabilityLabel.setForeground(Color.RED);
+
+                toggleAvailabilityButton.setText("Go Online");
+                toggleAvailabilityButton.setBackground(new Color(0, 150, 0));
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "You are now offline.",
+                        "Status Changed",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to update availability: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    /**
+     * Retrieves the rider's current availability status from the server.
+     *
+     * @throws IOException When retrieving active riders fails.
+     */
+    private void loadAvailability() throws IOException {
+        isAvailable = server.getActiveRiders().stream()
+                .anyMatch(activeRider -> activeRider.getUuid() == rider.getUuid());
+
         if (isAvailable) {
             availabilityLabel.setText("Status: Available");
             availabilityLabel.setForeground(new Color(0, 150, 0));
             toggleAvailabilityButton.setText("Go Offline");
             toggleAvailabilityButton.setBackground(Color.RED);
-            JOptionPane.showMessageDialog(
-                this,
-                "You are now available for deliveries!",
-                "Status Changed",
-                JOptionPane.INFORMATION_MESSAGE
-            );
         } else {
             availabilityLabel.setText("Status: Unavailable");
             availabilityLabel.setForeground(Color.RED);
             toggleAvailabilityButton.setText("Go Online");
             toggleAvailabilityButton.setBackground(new Color(0, 150, 0));
-            JOptionPane.showMessageDialog(
-                this,
-                "You are now offline.",
-                "Status Changed",
-                JOptionPane.INFORMATION_MESSAGE
-            );
         }
     }
-    
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
     public JButton getRefreshButton() {
         return refreshButton;
     }

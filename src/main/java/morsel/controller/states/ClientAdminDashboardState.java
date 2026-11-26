@@ -21,9 +21,10 @@ public class ClientAdminDashboardState extends ClientState {
         
         Actor admin = client.getContext().actor;
         this.dashboardPanel = new AdminDashboardPanel(
-            admin,
-            this::logout,
-            this::navigateToProfile
+                admin,
+                this::logout,
+                this::navigateToProfile,
+                client.server
         );
         
         setupEventListeners();
@@ -36,6 +37,10 @@ public class ClientAdminDashboardState extends ClientState {
         
         dashboardPanel.getRefreshOrdersButton().addActionListener(e -> {
             refreshOrders();
+        });
+
+        dashboardPanel.getRefreshRidersButton().addActionListener(e -> {
+            dashboardPanel.refreshActiveRiders();
         });
     }
     
@@ -111,6 +116,7 @@ public class ClientAdminDashboardState extends ClientState {
     public void onEntry() {
         refreshUsers();
         refreshOrders();
+        dashboardPanel.refreshActiveRiders();
     }
     
     @Override
@@ -127,5 +133,6 @@ public class ClientAdminDashboardState extends ClientState {
     public void onResume() {
         refreshUsers();
         refreshOrders();
+        dashboardPanel.refreshActiveRiders();
     }
 }

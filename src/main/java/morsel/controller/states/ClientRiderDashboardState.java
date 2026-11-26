@@ -21,21 +21,18 @@ public class ClientRiderDashboardState extends ClientState {
         
         Rider rider = (Rider) client.getContext().actor;
         this.dashboardPanel = new RiderDashboardPanel(
-            rider,
-            this::logout,
-            this::navigateToProfile
+                rider,
+                this::logout,
+                this::navigateToProfile,
+                client.server
         );
         
         setupEventListeners();
     }
-    
+
     private void setupEventListeners() {
         dashboardPanel.getRefreshButton().addActionListener(e -> {
             refreshDeliveries();
-        });
-        
-        dashboardPanel.getToggleAvailabilityButton().addActionListener(e -> {
-            dashboardPanel.toggleAvailability();
         });
     }
     

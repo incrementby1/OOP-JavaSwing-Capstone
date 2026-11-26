@@ -263,6 +263,42 @@ public class Server {
     }
 
     /**
+     * Updates the availability status of a given rider.
+     * Registers the rider as active when available and
+     * removes the rider when unavailable.
+     *
+     * @param rider The specified rider.
+     * @param isAvailable The availability status of the rider.
+     * @throws IOException When updating rider availability fails due to an IO error.
+     */
+    public void updateRiderAvailability(Rider rider, boolean isAvailable)
+            throws IOException {
+        assert rider != null;
+
+        HashMap<Long, Rider> store = activeRiderStore.readFrom();
+
+        if (isAvailable) {
+            store.put(rider.getUuid(), rider);
+        } else {
+            store.remove(rider.getUuid());
+        }
+
+        activeRiderStore.writeTo(store);
+    }
+
+    /**
+     * Retrieves all riders currently registered as active
+     * and available for delivery routing.
+     *
+     * @return A list of active riders.
+     * @throws IOException When retrieval fails due to an IO error.
+     */
+    public List<Rider> getActiveRiders() throws IOException {
+        HashMap<Long, Rider> store = activeRiderStore.readFrom();
+        return new ArrayList<>(store.values());
+    }
+
+    /**
      * Assigns the first active rider to the given order ID.
      * If no available rider exists the method returns false.
      * @param orderId The specified order ID.

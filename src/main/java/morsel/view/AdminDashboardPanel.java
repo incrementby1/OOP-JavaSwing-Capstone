@@ -1,22 +1,28 @@
 package morsel.view;
 
+import morsel.controller.Server;
 import morsel.model.actors.Actor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Admin dashboard panel for system management.
  */
 public class AdminDashboardPanel extends BaseDashboardPanel {
-    
+
+    private final Server server;
     private JTextArea usersTextArea;
     private JTextArea ordersTextArea;
     private JButton refreshUsersButton;
     private JButton refreshOrdersButton;
+    private JButton refreshRidersButton;
+    private JLabel activeRidersLabel;
     
-    public AdminDashboardPanel(Actor admin, Runnable onLogout, Runnable onProfile) {
+    public AdminDashboardPanel(Actor admin, Runnable onLogout, Runnable onProfile, Server server) {
         super(admin, onLogout, onProfile);
+        this.server = server;
     }
     
     @Override
@@ -99,7 +105,11 @@ public class AdminDashboardPanel extends BaseDashboardPanel {
         gbc.gridy++;
         systemInfoPanel.add(new JLabel("Total Orders: 0"), gbc);
         gbc.gridy++;
-        systemInfoPanel.add(new JLabel("Active Riders: 0"), gbc);
+        activeRidersLabel = new JLabel("Active Riders: 0");
+        systemInfoPanel.add(activeRidersLabel, gbc);
+        gbc.gridy++;
+        refreshRidersButton = new JButton("Refresh Active Riders");
+        systemInfoPanel.add(refreshRidersButton, gbc);
         gbc.gridy++;
         systemInfoPanel.add(new JLabel("Active Merchants: 0"), gbc);
         
@@ -111,11 +121,12 @@ public class AdminDashboardPanel extends BaseDashboardPanel {
         
         return mainPanel;
     }
-    
+
     @Override
     protected void onDashboard() {
         refreshUsers();
         refreshOrders();
+        refreshActiveRiders();
     }
     
     public void refreshUsers() {
@@ -129,6 +140,31 @@ public class AdminDashboardPanel extends BaseDashboardPanel {
         // In a real implementation, this would fetch all orders from the server
         ordersTextArea.setText("No orders loaded.\n\nClick 'Refresh Orders' to load order data.");
     }
+
+    /**
+     * Refreshes the active rider count using the server.
+     *
+     * @throws IOException When retrieving active riders fails.
+     */
+    public void refreshActiveRiders() {
+        try {
+            int count = server.getActiveRiders().size();
+            activeRidersLabel.setText("Active Riders: " + count);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to retrieve active riders: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    /**
+     * Returns the button used to refresh the active rider count.
+     *
+     * @return The active rider refresh button.
+     */
     
     public void setUsersText(String text) {
         usersTextArea.setText(text);
@@ -145,4 +181,6 @@ public class AdminDashboardPanel extends BaseDashboardPanel {
     public JButton getRefreshOrdersButton() {
         return refreshOrdersButton;
     }
+
+    public JButton getRefreshRidersButton() { return refreshRidersButton; }
 }
